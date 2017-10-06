@@ -1,6 +1,6 @@
 # godot_1dollar 
 A godot engine addon implementation of the 1$ gesture recognition algorithm.
-Created by n31r0 (initial port) and Todor Imreorov (game logic aid features and port to addon state (wip))
+Created by Todor Imreorov , based on n13r0's port)
 n31r0 ported this from http://depts.washington.edu/madlab/proj/dollar/index.html
 
 It can recognise the following shapes out of the box (in the json file):
