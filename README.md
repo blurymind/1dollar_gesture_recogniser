@@ -11,7 +11,8 @@ It can recognise the following shapes out of the box (in the json file):
 - lineV
 - heart
 - circle
-It can record shapes for recognition- and add them to a json file, which gets loaded on start
+
+It can record shapes for recognition- and add them to a json file (\\recordedGestures.json) , which gets loaded on start
 
 The developer can set limited ink - to limit the size of shapes that can be drawn
 Upon recognising a shape, it also emits a signal of what shape it is and how much ink was left when it was completed
