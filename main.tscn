@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://1dollar_gesture_recogniser.gd" type="Script" id=1]
+
+[node name="gestureRecogniser" type="Control"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 3
+size_flags/vertical = 3
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 1278.0
+margin/bottom = 636.0
+script/script = ExtResource( 1 )
+recording = true
+particleEffect = true
+particleColor = Color( 0.996094, 0.459137, 0.924779, 1 )
+lineThickness = 2
+lineColor = Color( 0.139847, 0.917969, 0.790308, 1 )
+inkHealthBarWidth = 100
+createColisions = true
+maxDrawnColShapes = 3
+
+
