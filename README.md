@@ -1,7 +1,6 @@
 # godot_1dollar 
 A godot engine addon implementation of the 1$ gesture recognition algorithm.
-Created by Todor Imreorov , based on n13r0's port)
-n31r0 ported this from http://depts.washington.edu/madlab/proj/dollar/index.html
+Created by Todor Imreorov , based on n13r0's port of http://depts.washington.edu/madlab/proj/dollar/index.html
 
 It can recognise the following shapes out of the box (in the json file):
 - carret
