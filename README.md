@@ -1,4 +1,5 @@
-# godot_1dollar ADDON
+# godot_1dollar_addon
+
 A godot engine addon implementation of the 1$ gesture recognition algorithm.
 Created by Todor Imreorov , based on n13r0's port of http://depts.washington.edu/madlab/proj/dollar/index.html
 
