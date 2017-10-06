@@ -22,7 +22,6 @@ export var particleColor = Color(1,1,1,1)
 
 var particleNode = null 
 func _ready():
-#	print("script folder:",self.get_script().get_path().get_base_dir())
 	var drawInputEvent = InputEvent() ## set the action to trigger this behavior
 	if inputMapAction == "":## make left mouse button the default trigger action
 		drawInputEvent.type = InputEvent.MOUSE_BUTTON
@@ -190,11 +189,14 @@ export var inkHealthBarWidth = 100
 func _draw():
 	var lineIndex = 0
 	if draw.size() <= 0: return
-	for line in draw:
-		if lineIndex > 0 : ##draw freehand line
-			draw_line(draw[lineIndex-1], draw[lineIndex], Color(lineColor.r,lineColor.g,lineColor.b,curInk), lineThickness)
-		lineIndex +=1
-	if inkLossRate> 0:
+
+	if lineThickness != 0:
+		for line in draw:
+			if lineIndex > 0 : ##draw freehand line
+				draw_line(draw[lineIndex-1], draw[lineIndex], Color(lineColor.r,lineColor.g,lineColor.b,curInk), lineThickness)
+			lineIndex +=1
+
+	if inkLossRate> 0 and inkHealthBarWidth != 0:
 		if curInk > 0 and inkHealthBarWidth > 0 :## indicate how much ink is left
 			draw_rect(Rect2(10,10,curInk*inkHealthBarWidth,20),lineColor)
 
