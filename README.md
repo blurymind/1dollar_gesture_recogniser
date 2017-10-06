@@ -12,7 +12,7 @@ It can recognise the following shapes out of the box (in the json file):
 - heart
 - circle
 
-It can record shapes for recognition- and add them to a json file (\\recordedGestures.json) , which gets loaded on start
+It can record shapes for recognition- and add them to a json file ("\recordedGestures.json") , which gets loaded on start
 
 ![screenshot](https://github.com/blurymind/1dollar_gesture_recogniser/blob/master/screenshot.png)
 
@@ -25,7 +25,7 @@ Optional particle effect and ability to set line thickness and color
 Ability to set the allowed drawing area and change the mouse cursor to a pencil then it is over it
 
 # How to use:
-Copy this to your project's addons folder (myprject/addons/godot_1dollar/<files>), then enable it
+Copy this to your project's addons folder (myprject/addons/godot_1dollar/--files--), then enable it
 This addon extends the control node.
 To set up drawing area - resize the node to the square size you want it to use
 
