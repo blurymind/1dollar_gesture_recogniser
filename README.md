@@ -13,6 +13,8 @@ It can recognise the following shapes out of the box (in the json file):
 
 It can record shapes for recognition- and add them to a json file (\\recordedGestures.json) , which gets loaded on start
 
+![screenshot](https://github.com/blurymind/1dollar_gesture_recogniser/blob/master/screenshot.png)
+
 The developer can set limited ink - to limit the size of shapes that can be drawn
 Upon recognising a shape, it also emits a signal of what shape it is and how much ink was left when it was completed
 If the ink left is > 0, it will create a collision shape from the drawing, that can be used to interact with other parts of the game
