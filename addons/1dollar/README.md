@@ -1,4 +1,4 @@
-# godot_1dollar_addon
+# godot_1dollar_addon 
 
 A godot engine addon implementation of the 1$ gesture recognition algorithm.
 Created by Todor Imreorov , based on n13r0's port of http://depts.washington.edu/madlab/proj/dollar/index.html
@@ -12,9 +12,9 @@ It can recognise the following shapes out of the box (in the json file):
 - heart
 - circle
 
-It can record shapes for recognition- and add them to a json file ("\recordedGestures.json") , which gets loaded on start
+![screenshot](https://github.com/blurymind/1dollar_gesture_recogniser/blob/master/addons/1dollar/plugin-icon.png) It can record shapes for recognition- and add them to a json file ("\recordedGestures.json") , which gets loaded on start
 
-![screenshot](https://github.com/blurymind/1dollar_gesture_recogniser/blob/master/screenshot.png)
+![screenshot](https://raw.githubusercontent.com/blurymind/1dollar_gesture_recogniser/master/addons/1dollar/screenshot.png)
 
 The developer can set limited ink - to limit the size of shapes that can be drawn
 Upon recognising a shape, it also emits a signal of what shape it is and how much ink was left when it was completed
