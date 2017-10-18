@@ -3,6 +3,10 @@
 A godot engine addon implementation of the 1$ gesture recognition algorithm.
 Created by Todor Imreorov , based on n13r0's port of http://depts.washington.edu/madlab/proj/dollar/index.html
 
+You can use it to make games like this:
+https://www.youtube.com/watch?v=86Wps6afMdY
+http://www.google.com/doodles/halloween-2016
+
 It can recognise the following shapes out of the box (in the json file):
 - carret
 - v
