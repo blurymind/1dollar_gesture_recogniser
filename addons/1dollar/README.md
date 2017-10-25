@@ -5,7 +5,8 @@ Created by Todor Imreorov , based on n13r0's port of http://depts.washington.edu
 
 You can use it to make games like this:
 
-https://www.youtube.com/watch?v=86Wps6afMdY
+[![googleGame](https://img.youtube.com/vi/86Wps6afMdY/0.jpg)](https://www.youtube.com/watch?v=86Wps6afMdY "googleGame")
+
 
 http://www.google.com/doodles/halloween-2016
 
@@ -17,6 +18,10 @@ It can recognise the following shapes out of the box (in the json file):
 - lineV
 - heart
 - circle
+
+Video demo:
+
+[![demo](https://img.youtube.com/vi/lN-IrC3vl4E/0.jpg)](https://www.youtube.com/watch?v=lN-IrC3vl4E "demo")
 
 ![screenshot](https://github.com/blurymind/1dollar_gesture_recogniser/blob/master/addons/1dollar/plugin-icon.png) It can record shapes for recognition- and add them to a json file ("\recordedGestures.json") , which gets loaded on start
 
