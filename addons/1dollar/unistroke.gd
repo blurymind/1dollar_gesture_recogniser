@@ -44,7 +44,7 @@ func RotateBy(points, radians): # rotates points around centroid
 	var c = Centroid(points)
 	var mcos = cos(radians)
 	var msin = sin(radians)
-	var newpoints = Vector2Array()
+	var newpoints = PoolVector2Array()
 	for i in range(points.size()):
 		var qx = (points[i].x - c.x) * mcos - (points[i].x - c.x) * msin + c.x
 		var qy = (points[i].x - c.x) * msin + (points[i].x - c.x) * mcos + c.x
@@ -53,8 +53,8 @@ func RotateBy(points, radians): # rotates points around centroid
 
 func ScaleTo(points, size): # non-uniform scale; assumes 2D gestures (i.e., no lines)
 	var B = BoundingBox(points)
-	var newpoints = Vector2Array()
-	for i in range(points.size()):
+	var newpoints = PoolVector2Array()
+	for i in range(points.size()):	
 		var qx = points[i].x * (size / B.width)
 		var qy = points[i].y * (size / B.height)
 		newpoints.append(Vector2(qx, qy))
@@ -62,7 +62,7 @@ func ScaleTo(points, size): # non-uniform scale; assumes 2D gestures (i.e., no l
 
 func TranslateTo(points, pt): # translates points' centroid
 	var c = Centroid(points)
-	var newpoints = Vector2Array()
+	var newpoints = PoolVector2Array()
 	for i in range(points.size()):
 		var qx = points[i].x + pt.x - c.x
 		var qy = points[i].y + pt.y - c.y
