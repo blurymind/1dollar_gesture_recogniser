@@ -1,5 +1,3 @@
-var point = Vector2()
-
 var NumPoints = 128
 var SquareSize = 250.0
 var Origin = Vector2(0,0)
@@ -10,24 +8,15 @@ var AnglePrecision = deg2rad(2.0)
 var Phi = 0.5 * (-1.0 + sqrt(5.0))
 var Infinity = 88888888888888
 
-var unistroke_triangle = preload("unistroke.gd").new("triangle",[Vector2(137,139),Vector2(135,141),Vector2(133,144),Vector2(132,146),Vector2(130,149),Vector2(128,151),Vector2(126,155),Vector2(123,160),Vector2(120,166),Vector2(116,171),Vector2(112,177),Vector2(107,183),Vector2(102,188),Vector2(100,191),Vector2(95,195),Vector2(90,199),Vector2(86,203),Vector2(82,206),Vector2(80,209),Vector2(75,213),Vector2(73,213),Vector2(70,216),Vector2(67,219),Vector2(64,221),Vector2(61,223),Vector2(60,225),Vector2(62,226),Vector2(65,225),Vector2(67,226),Vector2(74,226),Vector2(77,227),Vector2(85,229),Vector2(91,230),Vector2(99,231),Vector2(108,232),Vector2(116,233),Vector2(125,233),Vector2(134,234),Vector2(145,233),Vector2(153,232),Vector2(160,233),Vector2(170,234),Vector2(177,235),Vector2(179,236),Vector2(186,237),Vector2(193,238),Vector2(198,239),Vector2(200,237),Vector2(202,239),Vector2(204,238),Vector2(206,234),Vector2(205,230),Vector2(202,222),Vector2(197,216),Vector2(192,207),Vector2(186,198),Vector2(179,189),Vector2(174,183),Vector2(170,178),Vector2(164,171),Vector2(161,168),Vector2(154,160),Vector2(148,155),Vector2(143,150),Vector2(138,148),Vector2(136,148)])
-
 var Unistrokes = []
-#var Unistrokes = [
-#	unistroke_triangle
-#	]
 
 func recognize(points):
 	points = Resample(points, NumPoints)
-	var radians = IndicativeAngle(points)
-	#points = RotateBy(points, -radians)
 	points = ScaleTo(points, SquareSize)
 	points = TranslateTo(points, Origin)
-	var vector = Vectorize(points) #for Protractor
 	var b = Infinity #Magic number :)
 	var u = -1
 	for i in range(Unistrokes.size()): #for each unistroke
-		#var d = OptimalCosineDistance(Unistrokes[i].vector, vector)
 		var d = DistanceAtBestAngle(points, Unistrokes[i], -AngleRange, AngleRange, AnglePrecision)
 		if (d < b):
 			b = d # best (least) distance
@@ -35,9 +24,8 @@ func recognize(points):
 	if (u == -1):
 		return ["no match", 0.0]
 	else:
-		#return [Unistrokes[u].name, 1.0/b]
 		return [Unistrokes[u].name, 1.0 - b / HalfDiagonal]
-#   return (u == -1) ? new Result("No match.", 0.0) : new Result(this.Unistrokes[u].Name, useProtractor ? 1.0 / b : 1.0 - b / HalfDiagonal);
+
 func addGesture(name, points):
 	Unistrokes.append(preload("unistroke.gd").new(name, points)) # append new unistroke
 
@@ -73,7 +61,7 @@ func RotateBy(points, radians): # rotates points around centroid
 	var c = Centroid(points)
 	var mcos = cos(radians)
 	var msin = sin(radians)
-	var newpoints = Vector2Array()
+	var newpoints = PoolVector2Array()
 	for i in range(points.size()):
 		var qx = (points[i].x - c.x) * mcos - (points[i].x - c.x) * msin + c.x
 		var qy = (points[i].x - c.x) * msin + (points[i].x - c.x) * mcos + c.x
@@ -82,7 +70,7 @@ func RotateBy(points, radians): # rotates points around centroid
 
 func ScaleTo(points, size): # non-uniform scale; assumes 2D gestures (i.e., no lines)
 	var B = BoundingBox(points)
-	var newpoints = Vector2Array()
+	var newpoints = PoolVector2Array()
 	for i in range(points.size()):
 		var qx = points[i].x * (size / B.width)
 		var qy = points[i].y * (size / B.height)
@@ -91,7 +79,7 @@ func ScaleTo(points, size): # non-uniform scale; assumes 2D gestures (i.e., no l
 
 func TranslateTo(points, pt): # translates points' centroid
 	var c = Centroid(points)
-	var newpoints = Vector2Array()
+	var newpoints = PoolVector2Array()
 	for i in range(points.size()):
 		var qx = points[i].x + pt.x - c.x
 		var qy = points[i].y + pt.y - c.y
@@ -140,8 +128,6 @@ func DistanceAtBestAngle(points, T, a, b, threshold):
 	return min(f1, f2);
 
 func DistanceAtAngle(points, T, radians):
-	#var newpoints = RotateBy(points, radians); 
-	#return PathDistance(newpoints, T.points);
 	return PathDistance(points, T.points);
 
 func Centroid(points):
