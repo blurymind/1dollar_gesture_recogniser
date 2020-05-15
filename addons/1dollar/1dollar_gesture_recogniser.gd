@@ -118,7 +118,8 @@ func recogniseDrawnGesture():
 	var recognisedGesture = guestures.recognize(draw)
 	var inkLeft = curInk
 	emit_signal("shapeDetected",recognisedGesture,inkLeft)
-	get_node("gui/status").set_text(str(recognisedGesture," --ink left:",inkLeft)+str(" --draw: ",draw.size()," --gesture lib: ",guestures.Unistrokes.size()))
+	if recording:
+		get_node("gui/status").set_text(str(recognisedGesture," --ink left:",inkLeft)+str(" --draw: ",draw.size()," --gesture lib: ",guestures.Unistrokes.size()))
 
 	drawColShapePolygon(draw)
 	if inkLossRate  == 0:
