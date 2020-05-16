@@ -83,16 +83,14 @@ func _input(event):
 		if (event.is_action_pressed(inputMapAction)): ## pressed###############################################
 			draw = []
 			pressed = event.pressed
-			position.x = get_viewport().get_mouse_position().x
-			position.y = get_viewport().get_mouse_position().y
+			position = get_local_mouse_position()
 			if particleEffect and (draw.size() < maximumRecPoints):
 				particleNode.set_emitting(true)
 				particleNode.set_position(position)
 		if (event is InputEventMouseMotion && pressed): ## while pressed#################################
 			if (draw.size() < maximumRecPoints):
 				if curInk > 0:
-					position.x = get_viewport().get_mouse_position().x
-					position.y = get_viewport().get_mouse_position().y
+					position = get_local_mouse_position()
 					draw.append(position)
 					if particleEffect:
 						particleNode.set_position(position)
