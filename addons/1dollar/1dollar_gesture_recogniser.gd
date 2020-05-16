@@ -55,7 +55,7 @@ func _ready():
 		var debugGui = preload("debugGui.tscn").instance()
 		add_child(debugGui)
 		debugGui.set_position(Vector2(get_global_position().x,get_size().y))
-		get_node("gui/addGuester").connect("pressed",self,"_on_addGuester_pressed")
+		get_node("gui/addGesture").connect("pressed",self,"_on_addGesture_pressed")
 		get_node("gui/saveGesturesToJson").connect("pressed",self,"saveGesturesToJsonFile")
 		get_node("gui/status").set_text(str("Loaded ",guestures.Unistrokes.size()," gestures from json library"))
 		get_tree().set_debug_collisions_hint(true)
@@ -128,12 +128,12 @@ func recogniseDrawnGesture():
 
 var savedGestures = []
 var data = {}
-func _on_addGuester_pressed():
+func _on_addGesture_pressed():
 	if (draw.size() > minimumRecPoints) and (draw.size() < maximumRecPoints):
-		var new_guester = preload("unistroke.gd").new(get_node("gui/guester_name").get_text(), draw)
-		guestures.Unistrokes.append(new_guester)	
+		var newGesture = preload("unistroke.gd").new(get_node("gui/gestureName").get_text(), draw)
+		guestures.Unistrokes.append(newGesture)	
 		## store to array that will be written to the json file
-		savedGestures.append([get_node("gui/guester_name").get_text(),var2str(draw)])
+		savedGestures.append([get_node("gui/gestureName").get_text(),var2str(draw)])
 		if recording:
 			print("we have ",savedGestures.size()," gestures so far")
 			get_node("gui/status").set_text(str("ADDED draw: ",draw.size()," uni: ",guestures.Unistrokes.size()," to ram"))
@@ -167,9 +167,9 @@ func loadSavedGesturesFromJson(path):
 		loadedGestures.append(cleanedGestureData)
 		savedGestures.append(gesture)
 
-	for load_guester in loadedGestures:
-		var new_guester = preload("unistroke.gd").new(load_guester[0], load_guester[1])
-		guestures.Unistrokes.append(new_guester)
+	for loadGesture in loadedGestures:
+		var newGesture = preload("unistroke.gd").new(loadGesture[0], loadGesture[1])
+		guestures.Unistrokes.append(newGesture)
 	if recording:print ("Loaded ",loadedGestures.size()," gestures!")
 
 ## can we draw or not - the mouse needs to be inside the area
