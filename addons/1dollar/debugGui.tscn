@@ -7,29 +7,28 @@ margin_right = 1274.0
 margin_bottom = 695.0
 mouse_filter = 0
 
-[node name="addGuester" type="Button" parent="."]
-margin_right = 86.0
+[node name="addGesture" type="Button" parent="."]
+margin_right = 92.0
 margin_bottom = 24.0
 action_mode = 0
-text = "addGuester"
+text = "Add Gesture"
 
 [node name="saveGesturesToJson" type="Button" parent="."]
-margin_left = 90.0
-margin_right = 131.0
+margin_left = 96.0
+margin_right = 137.0
 margin_bottom = 24.0
 text = "Save"
 
-[node name="guester_name" type="LineEdit" parent="."]
-margin_left = 135.0
-margin_right = 335.0
+[node name="gestureName" type="LineEdit" parent="."]
+margin_left = 141.0
+margin_right = 341.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 200, 0 )
 
 [node name="status" type="Label" parent="."]
-margin_left = 339.0
-margin_right = 457.0
+margin_left = 345.0
+margin_right = 463.0
 margin_bottom = 14.0
 mouse_filter = 1
 size_flags_vertical = 0
 text = "draw something... "
-

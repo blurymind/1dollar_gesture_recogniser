@@ -4,7 +4,7 @@ extends Control
 signal shapeDetected 
 export var inputMapAction = ""
 var pressed = false
-var guestures = preload("recognizer.gd").new()
+var gestures  = preload("recognizer.gd").new()
 var draw = []
 var position = Vector2()
 var scriptPath = self.get_script().get_path().get_base_dir()
@@ -55,18 +55,27 @@ func _ready():
 		var debugGui = preload("debugGui.tscn").instance()
 		add_child(debugGui)
 		debugGui.set_position(Vector2(get_global_position().x,get_size().y))
-		get_node("gui/addGuester").connect("pressed",self,"_on_addGuester_pressed")
+		get_node("gui/addGesture").connect("pressed",self,"_on_addGesture_pressed")
 		get_node("gui/saveGesturesToJson").connect("pressed",self,"saveGesturesToJsonFile")
-		get_node("gui/status").set_text(str("Loaded ",guestures.Unistrokes.size()," gestures from json library"))
+		get_node("gui/status").set_text(str("Loaded ",gestures.Unistrokes.size()," gestures from json library"))
 		get_tree().set_debug_collisions_hint(true)
 	set_process_input(true)
 	if inkLossRate> 0:
 		set_process(true)
 	update()
 
+## can we draw or not - the mouse needs to be inside the area
+var canDraw = false
+func _on_mouse_enter():
+	canDraw = true
+	Input.set_custom_mouse_cursor(load(mouseCursorIconPath))
+func _on_mouse_exit():
+	canDraw = false
+	Input.set_custom_mouse_cursor(null)
+
 ################### replenish ink process #####################
 func _process(delta):
-	if Input.is_action_pressed(inputMapAction) == false and pressed == false:######  releasing  ########################
+	if Input.is_action_pressed(inputMapAction) == false and pressed == false and canDraw:######  releasing  ########################
 		if curInk <= maxInk:
 			if replenishInkSpeed != 0:curInk += replenishInkSpeed * delta /10
 		else:curInk = maxInk
@@ -113,11 +122,11 @@ func recogniseDrawnGesture():
 	
 	if (draw.size() > maximumRecPoints): return ##prevent crashes
 	if (draw.size() == 0): return ##prevent crashes
-	var recognisedGesture = guestures.recognize(draw)
+	var recognisedGesture = gestures.recognize(draw)
 	var inkLeft = curInk
 	emit_signal("shapeDetected",recognisedGesture,inkLeft)
 	if recording:
-		get_node("gui/status").set_text(str(recognisedGesture," --ink left:",inkLeft)+str(" --draw: ",draw.size()," --gesture lib: ",guestures.Unistrokes.size()))
+		get_node("gui/status").set_text(str(recognisedGesture," --ink left:",inkLeft)+str(" --draw: ",draw.size()," --gesture lib: ",gestures.Unistrokes.size()))
 
 	drawColShapePolygon(draw)
 	if inkLossRate  == 0:
@@ -128,15 +137,15 @@ func recogniseDrawnGesture():
 
 var savedGestures = []
 var data = {}
-func _on_addGuester_pressed():
+func _on_addGesture_pressed():
 	if (draw.size() > minimumRecPoints) and (draw.size() < maximumRecPoints):
-		var new_guester = preload("unistroke.gd").new(get_node("gui/guester_name").get_text(), draw)
-		guestures.Unistrokes.append(new_guester)	
+		var newGesture = preload("unistroke.gd").new(get_node("gui/gestureName").get_text(), draw)
+		gestures.Unistrokes.append(newGesture)	
 		## store to array that will be written to the json file
-		savedGestures.append([get_node("gui/guester_name").get_text(),var2str(draw)])
+		savedGestures.append([get_node("gui/gestureName").get_text(),var2str(draw)])
 		if recording:
 			print("we have ",savedGestures.size()," gestures so far")
-			get_node("gui/status").set_text(str("ADDED draw: ",draw.size()," uni: ",guestures.Unistrokes.size()," to ram"))
+			get_node("gui/status").set_text(str("ADDED draw: ",draw.size()," uni: ",gestures.Unistrokes.size()," to ram"))
 		draw = []
 
 func saveGesturesToJsonFile():
@@ -167,19 +176,10 @@ func loadSavedGesturesFromJson(path):
 		loadedGestures.append(cleanedGestureData)
 		savedGestures.append(gesture)
 
-	for load_guester in loadedGestures:
-		var new_guester = preload("unistroke.gd").new(load_guester[0], load_guester[1])
-		guestures.Unistrokes.append(new_guester)
+	for loadGesture in loadedGestures:
+		var newGesture = preload("unistroke.gd").new(loadGesture[0], loadGesture[1])
+		gestures.Unistrokes.append(newGesture)
 	if recording:print ("Loaded ",loadedGestures.size()," gestures!")
-
-## can we draw or not - the mouse needs to be inside the area
-var canDraw = false
-func _on_mouse_enter():
-	canDraw = true
-	Input.set_custom_mouse_cursor(load(mouseCursorIconPath))
-func _on_mouse_exit():
-	canDraw = false
-	Input.set_custom_mouse_cursor(null)
 
 ########### draw ###################################################################################
 export var lineThickness = 2
@@ -207,7 +207,7 @@ func drawColShapePolygon(vector2arr):
 	if curInk > 0 and createColisions:
 		var colShapePol = CollisionPolygon2D.new()
 		colShapePol.set_polygon(vector2arr)
-		colShapePol.add_to_group(str("drawnShape:",guestures.recognize(draw))) ##will be useful later on for colisions
+		colShapePol.add_to_group(str("drawnShape:",gestures.recognize(draw))) ##will be useful later on for colisions
 		colShapePol.add_to_group("drawnShapes") ## use to keep track of all
 		add_child(colShapePol)
 	### limit how many maximum drawn shapes can exist ### you can destroy them on collision elsewhere
